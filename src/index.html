@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="utf-8">
+	<title>Observatorio</title>
+	<link rel="stylesheet" href="./stylesheets/bootstrap.css" media="all" />
+	<link rel="stylesheet" href="./stylesheets/bootstrap-responsive.css" media="all" />
+	<link rel="stylesheet" href="./stylesheets/observatorio.css" media="all" />
+	<style type="text/css">
+		h1, h2, h3, h4, h5, h6
+		{
+			font-family: 'Gruppo', sans-serif;
+	}	
+
+	a
+	{
+		color: #99b3cc;
+	}
+
+	#commentform input[type="submit"], input[type="submit"], .toggleButton:hover, .widget_tag_cloud a
+	{
+		background: #99b3cc;
+	}
+	</style>
+	<script src="http://maps.google.com/maps/api/js?sensor=true" type="text/javascript"></script>
+	<script src="./javascripts/jquery.js"></script>
+	<script src="./javascripts/bootstrap.min.js"></script>
+	<script src="./javascripts/jquery-ui.js"></script>
+	<script src="./javascripts/jquery.ui.map.full.min.js"></script>
+</head>
+<body class="home blog">
+	<div id="gMap" style="height: 550px; width: 100%; position: relative; background-color: rgb(229, 227, 223); overflow: hidden;"></div>
+    <div class="navbar navbar-fixed-top navbar-inverse">
+        <div class="navbar-inner">
+            <div class="content">
+                <a class="brand" href="/index.html">Observatorio</a>
+                <ul class="nav pull-right">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#">Link</a></li>
+                    <li><a href="#">Link</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="footer">
+		<div id="copyright">
+			Copyright &copy; 2012 El Observatorio. Mapa provisto por Google.
+		</div>	
+	</div>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			var coords = new google.maps.LatLng(-33.3426606750, -71.0736160278);
+	        $('#gMap').gmap({'center': coords});
+			$('#gMap').gmap('getCurrentPosition', function(position, status) {
+				if ( status === 'OK' ) {
+					var clientPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+					$('#map_canvas').gmap('addMarker', {'position': clientPosition, 'bounds': true});
+					$('#map_canvas').gmap('addShape', 'Circle', { 
+						'strokeWeight': 0, 
+						'fillColor': "#008595", 
+						'fillOpacity': 0.25, 
+						'center': clientPosition, 
+						'radius': 15, 
+						'clickable': false 
+					});
+				}
+			});
+		});
+	</script>
+</body>
+</html>
